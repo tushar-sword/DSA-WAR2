@@ -13,30 +13,22 @@
  *     }
  * }
  */
-
-
- 
-   
-
 class Solution {
-
-     public void InOrder(TreeNode root , List<Integer> ans){
-        TreeNode curr = root;
+     TreeNode prev = null;
+    public void flatten(TreeNode root) {
+       
         if(root == null){
             return ;
         }
-        
-        
-        InOrder(curr.left,ans);
-        ans.add(curr.val);
-        InOrder(curr.right,ans);
-    }
 
-    public List<Integer> inorderTraversal(TreeNode root) {
-        
-        List<Integer> ans = new ArrayList<Integer>();
+        flatten(root.right);
+        flatten(root.left);
 
-        InOrder(root,ans);
-        return ans;
+        root.right = prev;
+        root.left= null;
+
+// updating the prev
+        prev = root;
+
     }
 }
