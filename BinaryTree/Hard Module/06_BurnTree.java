@@ -3,6 +3,7 @@
 // isme visisted will be used to tell kon already burn ho chuka hoga and kon next burn hone wala hoga
 
 
+// tuf pe ek graph solution bhi hai eska using adjancy list bna ke bfs krlo but usme space complexity jyada ho jaegi isliye tree ke trh parent map bna ke bfs krna better hoga
 write the code 
 
 import java.util.*;
@@ -95,4 +96,5 @@ public class BurnTree {
         return time;
     }
 }
+
 
