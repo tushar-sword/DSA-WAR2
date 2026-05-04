@@ -1,68 +1,59 @@
-class Solution{
-    public TreeNode deleteNode(TreeNode root, int key){
+class Solution {
 
-        
-
-        if(root == null){
-            return null;
+    public TreeNode helper(TreeNode root) {
+        // case 1: no left child
+        if (root.left == null) {
+            return root.right;
+        }
+        // case 2: no right child
+        if (root.right == null) {
+            return root.left;
         }
 
-        if(root.val = key){
-            return helper(root);
-        }
+        // case 3: both children exist
+        TreeNode rightSubtree = root.right;
+        TreeNode lastRight = findLastRight(root.left);
 
-        TreeNode dummy = root;
-        
-        while(root != null){
-            if(root.val > key){
+        lastRight.right = rightSubtree;
 
-                if(root.left != null && root.left == key){
-                    return helper(root.left);
-                    break;
-                }
-                else{
-                    root = root.left;
-                }
-            }
-            else{
-                if(root.right != null && root.right == key){
-                    return helper(root.right);
-                    break;
-                }
-                else{
-                    root = root.right;
-                }
-            }
-        }
-
-        return dummy;
-    }
-}
-
-public TreeNode helper(TreeNode root){
-    // agar left side he null nikal jae
-    if(root.left == null){
-        return root.right;
-    }
-    else if(root.right == null){
         return root.left;
     }
 
-    // agar dono na nikle toh niklo left ka Greatest element aur kro connect right subtree se 
-
-    else{
-
-        TreeNode rightsubtree = root.right;
-        TreeNode lastRightofLeft = findLastRight(root.left);
-
-        lastRightofLeft.right = rightsubtree;
+    public TreeNode findLastRight(TreeNode node) {
+        if (node.right == null) {
+            return node;
+        }
+        return findLastRight(node.right);
     }
-}
 
-public TreeNode findLastRight(TreeNode left){
-    if(root.right == null){
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) return null;
+
+        // if root itself is the node to delete
+        if (root.val == key) {
+            return helper(root);
+        }
+
+        TreeNode curr = root;
+
+        while (curr != null) {
+            if (key < curr.val) {
+                if (curr.left != null && curr.left.val == key) {
+                    curr.left = helper(curr.left);
+                    break;
+                } else {
+                    curr = curr.left;
+                }
+            } else {
+                if (curr.right != null && curr.right.val == key) {
+                    curr.right = helper(curr.right);
+                    break;
+                } else {
+                    curr = curr.right;
+                }
+            }
+        }
+
         return root;
     }
-
-    return findLastRight(root.right);
 }
